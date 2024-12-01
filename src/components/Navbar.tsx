@@ -15,10 +15,10 @@ const Navbar: React.FC = () => {
       <nav className="border-b border-border bg-background shadow-lg" style={{ height: `${NAVBAR_HEIGHT}px` }}>
         <div className="container mx-auto p-4 flex items-center justify-between" style={{ height: '100%' }}>
           <div className="flex items-center space-x-6">
-            <Link to="/">
+            <Link to="/" aria-label="Home">
               <Logo className='h-5'/>
             </Link>
-            <Link to="/favorites" className="font-medium text-lg hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white flex items-center gap-2">
+            <Link to="/favorites" aria-label="Favorites" className="font-medium text-lg hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white flex items-center gap-2">
               <Star 
                 size={20} 
                 className="text-yellow-500 dark:text-yellow-400" 
@@ -32,6 +32,7 @@ const Navbar: React.FC = () => {
               href="https://github.com/DovAzencot/fireblocks" 
               target="_blank" 
               rel="noopener noreferrer" 
+              aria-label="GitHub repository"
               className="font-medium text-lg hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white flex items-center gap-2"
             >
               <GithubIcon size={20} />
