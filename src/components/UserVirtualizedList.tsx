@@ -14,27 +14,31 @@ interface UserVirtualizedListProps {
   showFavorites?: boolean;
 }
 
+// Main component definition
 const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ showFavorites = false }) => {
-  const userStore = useContext(UserContext);
+  const userStore = useContext(UserContext); // Access the user store from context
   const [containerHeight, setContainerHeight] = useState(
-    window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT
+    window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT // Calculate initial container height
   );
 
+  // Effect to handle window resize and update container height
   useEffect(() => {
     const handleResize = () => {
       setContainerHeight(window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize); // Add resize event listener
+    return () => window.removeEventListener('resize', handleResize); // Cleanup event listener on unmount
   }, []);
 
+  // Display error message if user store is not available
   if (!userStore) {
     return <ErrorMessage message="User store is not available." />;
   }
 
+  // Display loading skeleton rows if data is still loading
   if (userStore.loading) {
-    const rowsToShow = Math.ceil(containerHeight / 80); 
+    const rowsToShow = Math.ceil(containerHeight / 80); // Calculate number of skeleton rows to show
     return (
       <div style={{ 
         height: containerHeight, 
@@ -48,6 +52,7 @@ const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ show
     );
   }
 
+  // Determine which list of items to display (favorites or all users)
   const items = showFavorites ? userStore.filteredFavorites : userStore.filteredUsers;
   const emptyMessage = showFavorites ? (
     <span>
@@ -61,16 +66,19 @@ const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ show
     </span>
   );
 
+  // Display error message if no items are found
   if (items.length === 0) {
     return <ErrorMessage message={emptyMessage} />;
   }
 
+  // Define the row component for the virtualized list
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
     <div style={style}>
       <UserRow user={items[index]} />
     </div>
   );
 
+  // Render the virtualized list using FixedSizeList
   return (
     <div style={{ height: containerHeight, width: '100%' }}>
       <FixedSizeList

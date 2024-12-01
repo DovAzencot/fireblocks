@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 
 class UserStore {
   users: User[] = [];
-  favorites: User[] = [];
+  favorites: Set<User> = new Set();
   loading: boolean = false;
   searchQuery: string = '';
 
@@ -29,7 +29,7 @@ class UserStore {
   }
 
   get filteredFavorites() {
-    return this.favorites.filter(user => 
+    return Array.from(this.favorites).filter(user => 
       user.name.first.toLowerCase().includes(this.searchQuery) ||
       user.name.last.toLowerCase().includes(this.searchQuery)
     );
@@ -52,7 +52,7 @@ class UserStore {
       runInAction(() => {
         this.users = [];
         this.loading = false;
-        const errorMessage = error instanceof Response && error.status === 429 
+        const errorMessage = error instanceof Error && error.message.includes('429') 
           ? 'Too many requests. Please try again later.' 
           : 'Failed to load users';
         toast.error(errorMessage);
@@ -63,14 +63,14 @@ class UserStore {
 
   toggleFavorite = (user: User) => {
     if (this.isFavorite(user)) {
-      this.favorites = this.favorites.filter(fav => fav.email !== user.email);
+      this.favorites.delete(user);
     } else {
-      this.favorites = [...this.favorites, user];
+      this.favorites.add(user);
     }
   };
 
   isFavorite = (user: User) => {
-    return this.favorites.some(fav => fav.email === user.email);
+    return this.favorites.has(user);
   };
 }
 
