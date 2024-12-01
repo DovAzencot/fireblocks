@@ -42,6 +42,7 @@ const App: React.FC = () => {
                   style: {
                     background: 'hsl(var(--primary))',
                     color: 'hsl(var(--primary-foreground))',
+                    border: 'none',
                   },
                 }}
               />
