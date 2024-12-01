@@ -48,6 +48,7 @@ This application is built using modern web technologies and practices:
 4. **react-window**
    - Efficiently handles rendering of large lists and tables
    - Improves performance by only rendering visible items
+   - Smaller bundle size and simpler API compared to `react-virtualized` (developed by the same person)
 
 5. **randomuser.me**
    - Provides a simple API for generating random user data
