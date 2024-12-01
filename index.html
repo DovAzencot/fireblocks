@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/fireblocks.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta property="og:image" content="/public/demo.webp" />
+    <meta name="description" content="User Management Application built with modern web technologies including Vite, TypeScript, React, and more. This is a Fireblocks exercise." />
+    <title>Fireblocks Exercice</title>
+    <script>
+      (function() {
+        const storageKey = 'ui-theme';
+        const theme = localStorage.getItem(storageKey) || 'light';
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
