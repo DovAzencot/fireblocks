@@ -1,6 +1,10 @@
 # User Management Application
 
 ![User Management Application](./public/demo.webp)
+![SEO Score](./public/seo.webp)
+
+### Performance Note
+The performance score is lower mainly due to the low API speed and the fact that it serves low-quality images. I didn't bother finding a more efficient API for this purpose.
 
 ## Technology Stack & Architecture
 
