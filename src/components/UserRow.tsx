@@ -14,7 +14,7 @@ const UserRow: React.FC<UserRowProps> = ({ user }) => {
     <div className="flex items-center p-4 border-b border-border h-20 min-w-[320px] hover:bg-muted/50">
       <div className="flex-none w-12">
         <img
-          src={user.picture.thumbnail}
+          src={user.picture.medium}
           alt={`${user.name.first} ${user.name.last}`}
           className="w-12 h-12 rounded-full bg-muted"
         />
