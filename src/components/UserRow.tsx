@@ -24,7 +24,7 @@ const UserRow: React.FC<UserRowProps> = ({ user }) => {
           <Badge 
             variant={user.gender === 'male' ? 'default' : 'secondary'}
             className="transition-none"
-            style={{ backgroundColor: user.gender === 'male' ? '#3b82f6' : '#ec4899', color: 'white' }}
+            style={{ backgroundColor: user.gender === 'male' ? '#1e40af' : '#be185d', color: 'white' }}
           >
             {user.gender}
           </Badge>
