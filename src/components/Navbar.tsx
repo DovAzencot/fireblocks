@@ -6,12 +6,10 @@ import { ModeToggle } from "./ModeToggle";
 import { NAVBAR_HEIGHT } from '../constants';
 import { Star, GithubIcon } from 'lucide-react';
 import Logo from './Logo';
-import { ThemeProvider } from 'next-themes';
 
 const Navbar: React.FC = () => {
 
   return (
-    <ThemeProvider attribute="class">
       <nav className="border-b border-border bg-background shadow-lg" style={{ height: `${NAVBAR_HEIGHT}px` }}>
         <div className="container mx-auto p-4 flex items-center justify-between" style={{ height: '100%' }}>
           <div className="flex items-center space-x-6">
@@ -42,7 +40,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </nav>
-    </ThemeProvider>
   );
 };
 
