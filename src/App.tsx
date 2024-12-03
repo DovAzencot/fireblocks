@@ -24,30 +24,26 @@ const App: React.FC = () => {
     >
       <UserContext.Provider value={userStore}>
         <Router>
-          <div className="app-container">
-            <div className="content">
-              <div className="flex flex-col h-screen bg-background text-foreground">
-                <Navbar />
-                <SearchBar />
-                <div className="flex-1 overflow-hidden">
-                  <Routes>
-                    {routes.map((route, index) => (
-                      <Route key={index} path={route.path} element={route.element} />
-                    ))}
-                  </Routes>
-                </div>
-              </div>
-              <Toaster 
-                toastOptions={{
-                  style: {
-                    background: 'hsl(var(--primary))',
-                    color: 'hsl(var(--primary-foreground))',
-                    border: 'none',
-                  },
-                }}
-              />
+          <div className="flex flex-col h-screen bg-background text-foreground">
+            <Navbar />
+            <SearchBar />
+            <div className="flex-1 overflow-hidden">
+              <Routes>
+                {routes.map((route, index) => (
+                  <Route key={index} path={route.path} element={route.element} />
+                ))}
+              </Routes>
             </div>
           </div>
+          <Toaster 
+            toastOptions={{
+              style: {
+                background: 'hsl(var(--primary))',
+                color: 'hsl(var(--primary-foreground))',
+                border: 'none',
+              },
+            }}
+          />
         </Router>
       </UserContext.Provider>
     </ThemeProvider>
