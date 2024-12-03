@@ -14,27 +14,23 @@ interface UserVirtualizedListProps {
   showFavorites?: boolean;
 }
 
+const calculateContainerHeight = () => window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT;
+
 // Main component definition
 const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ showFavorites = false }) => {
   const userStore = useContext(UserContext); // Access the user store from context
-  const [containerHeight, setContainerHeight] = useState(
-    window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT // Calculate initial container height
-  );
+  const [containerHeight, setContainerHeight] = useState(calculateContainerHeight);
 
   // Effect to handle window resize and update container height
   useEffect(() => {
-    const handleResize = () => {
-      setContainerHeight(window.innerHeight - NAVBAR_HEIGHT - SEARCHBAR_HEIGHT);
-    };
+    const handleResize = () => setContainerHeight(calculateContainerHeight);
 
     window.addEventListener('resize', handleResize); // Add resize event listener
     return () => window.removeEventListener('resize', handleResize); // Cleanup event listener on unmount
   }, []);
 
   // Display error message if user store is not available
-  if (!userStore) {
-    return <ErrorMessage message="User store is not available." />;
-  }
+  if (!userStore) return <ErrorMessage message="User store is not available." />;
 
   // Display loading skeleton rows if data is still loading
   if (userStore.loading) {
@@ -67,16 +63,7 @@ const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ show
   );
 
   // Display error message if no items are found
-  if (items.length === 0) {
-    return <ErrorMessage message={emptyMessage} />;
-  }
-
-  // Define the row component for the virtualized list
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => (
-    <div style={style}>
-      <UserRow user={items[index]} />
-    </div>
-  );
+  if (items.length === 0) return <ErrorMessage message={emptyMessage} />;
 
   // Render the virtualized list using FixedSizeList
   return (
@@ -87,7 +74,11 @@ const UserVirtualizedList: React.FC<UserVirtualizedListProps> = observer(({ show
         itemCount={items.length}
         itemSize={80}
       >
-        {Row}
+        {({ index, style }) => (
+          <div style={style}>
+            <UserRow user={items[index]} />
+          </div>
+        )}
       </FixedSizeList>
     </div>
   );
